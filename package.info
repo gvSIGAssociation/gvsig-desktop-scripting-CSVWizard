@@ -1,0 +1,21 @@
+#
+#Mon Jun 05 21:47:25 CEST 2017
+owner=
+code=CSVWizard
+java-version=j1_7
+official=true
+type=Script
+version=1.0.0-7
+state=testing
+operating-system=all
+dependencies=
+sources-url=
+web-url=
+architecture=all
+model-version=1.0.1
+categories=
+description=Asistente para la carga de ficheros CSV como capa y tabla.\n\nPermite ajustar la configuracion de carga del CSV y previsualizarlo para \nasegurar la correcta configuracion antes de realizar la carga de este.
+owner-url=
+buildNumber=7
+gvSIG-version=2.4.0
+name=CSV Wizard

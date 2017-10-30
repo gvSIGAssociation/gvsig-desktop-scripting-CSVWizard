@@ -1,0 +1,25 @@
+<parameters>
+  <commentStartMarker></commentStartMarker>
+  <charset>UTF-8</charset>
+  <fieldsDefinition>0:8 8:22 22:36 36:-1 </fieldsDefinition>
+  <CRS></CRS>
+  <profile>EXCEL_NORTH_EUROPE_PREFERENCE</profile>
+  <quoteCharacter></quoteCharacter>
+  <locale>en</locale>
+  <recordSeparator></recordSeparator>
+  <skipLines>0</skipLines>
+  <point></point>
+  <ignoreErrors>True</ignoreErrors>
+  <File>/home/jjdelcerro/gvSIG/plugins/org.gvsig.scripting.app.mainplugin/scripts/addons/CSVWizard/data/fixedsize.txt</File>
+  <fieldtypes></fieldtypes>
+  <automaticTypesDetection>True</automaticTypesDetection>
+  <quotePolicy>NormalQuoteMode</quotePolicy>
+  <firstLineHeader>True</firstLineHeader>
+  <delimiter>;</delimiter>
+  <pointColumnName>geom</pointColumnName>
+  <limit>-1</limit>
+  <escapeCharacter></escapeCharacter>
+  <header>id__Integer;latitud__Double;longitud__Double;AAD__String;</header>
+  <surroundingSpacesNeedQuotes>False</surroundingSpacesNeedQuotes>
+  <ProviderName>CSV</ProviderName>
+</parameters>

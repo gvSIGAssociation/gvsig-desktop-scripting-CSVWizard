@@ -1,0 +1,14 @@
+[script]
+enable = false
+
+[Unit]
+type = Script
+name = parametersio
+description = 
+createdBy = 
+version = 
+
+[Script]
+main = main
+Lang = python
+
