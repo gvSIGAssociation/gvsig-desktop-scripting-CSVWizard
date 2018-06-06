@@ -2,6 +2,7 @@
 
 
 import gvsig
+from gvsig import getResource
 from gvsig import commonsdialog
 from gvsig.uselib import use_plugin
 from gvsig.libs.formpanel import FormPanel, FormComponent, ActionListenerAdapter
@@ -417,7 +418,7 @@ class CSVWizard(FormPanel, AbstractDataStoreParametersPanel): # pylint: disable=
     self.mnuOptions.add(self.mnuLoadParameters)
     self.mnuOptions.add(self.mnuAutomaticPreview)
     
-    self.load(os.path.join(os.path.dirname(__file__),"CSVWizard.xml"))
+    self.load(getResource(__file__,"CSVWizard.xml"))
         
     self.columnTypes = ColumnTypes(
       self.lblColumn, self.cboColumn,
@@ -959,7 +960,7 @@ def main(*args):
   fname = "test-latlon-es.csv"
   #fname = "test-nogeom.csv"
   fname = "test-XYZ-en.csv"
-  parameters.setDynValue("file",os.path.join(os.path.dirname(__file__),"data",fname))
+  parameters.setDynValue("file",getResource(__file__,"data",fname))
   wizard = factory.create(parameters)
   wizard.setExcludeGeometryOptions(False)
   wizard.showWindow("CSV Wizard")
