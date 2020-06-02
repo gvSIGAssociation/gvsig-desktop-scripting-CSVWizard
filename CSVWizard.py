@@ -960,6 +960,8 @@ def main(*args):
   fname = "test-latlon-es.csv"
   #fname = "test-nogeom.csv"
   fname = "test-XYZ-en.csv"
+  fname = "muchas_columnas.csv"
+  
   parameters.setDynValue("file",getResource(__file__,"data",fname))
   wizard = factory.create(parameters)
   wizard.setExcludeGeometryOptions(False)
