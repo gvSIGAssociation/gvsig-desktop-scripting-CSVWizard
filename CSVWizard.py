@@ -86,12 +86,16 @@ class LocaleItem(object):
     
 class ColumnType(object):
 
-  def __init__(self, name=None, typeName=None, calculated=False):
+  def __init__(self, name=None, typeName=None, calculated=False, precision=-1, scale=-1, size=-1, displaySize=-1):
     self.name = name
     self.typeName = typeName
     self.pos1 = 0
     self.pos2 = -1
     self.calculated = calculated
+    self.precision = precision
+    self.scale = scale
+    self.size = size
+    self.displaySize = displaySize
 
   def __str__(self):
     return "%s,%s,%s.%s,%s" % (self.name,self.typeName,self.pos1,self.pos2,self.calculated)
@@ -188,7 +192,7 @@ class ColumnTypes(FormComponent):  # pylint: disable=R0904
     ft = store.getDefaultFeatureType()
     for at in ft.getAttributeDescriptors():
       calculated = (at.getEvaluator()!=None or at.getFeatureAttributeEmulator()!=None)
-      self.columnTypes.append(ColumnType(at.getName(), at.getDataTypeName(),calculated))
+      self.columnTypes.append(ColumnType(at.getName(), at.getDataTypeName(),calculated, at.getPrecision(), at.getScale(), at.getSize(), at.getDisplaySize()))
     self.cboColumn.removeAllItems()
     for n in range(0,len(self.columnTypes)):
       self.cboColumn.addItem(n)
@@ -279,11 +283,12 @@ class ColumnTypes(FormComponent):  # pylint: disable=R0904
     header = ""
     for columnType in self.columnTypes:
       if not columnType.calculated:
-        header += columnType.name + "__" + columnType.typeName + delimiter
+        header +="%s__%s__set__precision=%s__set__scale=%s__set__size=%s__set__displaySize=%s%s" % ( columnType.name, columnType.typeName, columnType.precision, columnType.scale, columnType.size, columnType.displaySize, delimiter)
     #print "ColumnTypes.getHeader(%r): %r" % (delimiter,header)
     return header   
 
   def setHeader(self, headers, delimiter):
+    #print "setHeader "+repr(headers)
     if headers == None:
       return
     if delimiter == None:
@@ -305,6 +310,7 @@ class ColumnTypes(FormComponent):  # pylint: disable=R0904
     return definition
 
   def setFixedFielDefinition(self, definitions):
+    #print "setFixedFielDefinition "+repr(definitions)
     if definitions == None:
       return
     if self.columnTypes == None:
@@ -664,11 +670,15 @@ class CSVWizard(FormPanel, AbstractDataStoreParametersPanel): # pylint: disable=
         parameters.setDynValue("pointColumnName",self.txtGeomName.getText())
       
     elif self.rdbWKTGeometry.isSelected():
+      print "###> usamos WKT"      
       parameters.setDynValue("CRS", self.crs)
+      print "###> CRS="+str(self.crs)
       columnGeometry = self.cboWKTGeometry.getSelectedItem()
+      print "###> geometry_column="+repr(columnGeometry)
       if columnGeometry!=None:
+        print "###> asigno geometry_column"
         parameters.setDynValue("geometry_column", columnGeometry)
-    
+    print str(parameters)
     
   def updatePreview(self):
     self.fetchParameters(self._parameters)
@@ -953,6 +963,8 @@ class CSVWizard(FormPanel, AbstractDataStoreParametersPanel): # pylint: disable=
     
 
 def main(*args):
+  from java.io import File
+  
   dataManager = DALLocator.getDataManager()
   parameters = dataManager.createStoreParameters("CSV")
   factory = CSVWizardFactory()
@@ -963,6 +975,7 @@ def main(*args):
   fname = "muchas_columnas.csv"
   
   parameters.setDynValue("file",getResource(__file__,"data",fname))
+  parameters.setDynValue("file",File("/home/jjdelcerro/Descargas/lineas-exp8119553_b.csv"))
   wizard = factory.create(parameters)
   wizard.setExcludeGeometryOptions(False)
   wizard.showWindow("CSV Wizard")
