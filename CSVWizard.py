@@ -173,7 +173,7 @@ class ColumnTypes(FormComponent):  # pylint: disable=R0904
     self.setEnabled(self.columnTypes != None)
     
   def clear(self):
-    #print "ColumnTypes.clear()"
+    print "ColumnTypes.clear()"
     self.columnTypes = None
     self.current = -1
     self.txtColumnName.setText("")
@@ -284,7 +284,7 @@ class ColumnTypes(FormComponent):  # pylint: disable=R0904
     for columnType in self.columnTypes:
       if not columnType.calculated:
         header +="%s__%s__set__precision=%s__set__scale=%s__set__size=%s__set__displaySize=%s%s" % ( columnType.name, columnType.typeName, columnType.precision, columnType.scale, columnType.size, columnType.displaySize, delimiter)
-    #print "ColumnTypes.getHeader(%r): %r" % (delimiter,header)
+    print "ColumnTypes.getHeader(%r): %r" % (delimiter,header)
     return header   
 
   def setHeader(self, headers, delimiter):
@@ -691,7 +691,7 @@ class CSVWizard(FormPanel, AbstractDataStoreParametersPanel): # pylint: disable=
       if self.featureTable!=None:
         self.featureTable.setVisible(False)
       self.currentStore = None
-      self.columnTypes.clear()
+      self.clearColumnsAndPreview()
       return
 
     saveAutorefresh = self._autorefresh
@@ -840,50 +840,62 @@ class CSVWizard(FormPanel, AbstractDataStoreParametersPanel): # pylint: disable=
     self.autorefresh(4)
     
   def spnSkipFromLine_change(self,*args):
+    self.clearColumnsAndPreview()
     self.autorefresh()
    
   def chkIgnoreErrors_change(self,*args):
     self.autorefresh()
 
   def chkUseHeader_change(self,*args):
-    self.columnTypes.clear()
+    self.clearColumnsAndPreview()
     self.autorefresh()
 
   def txtCommentStartMarker_change(self,*args):
+    self.clearColumnsAndPreview()
     self.autorefresh(4)
 
+  def cboCharSet_change(self,*args):
+    self.clearColumnsAndPreview()
+    self.enableComponents()
+    self.autorefresh()
+    
+  def cboLocale_change(self,*args):
+    self.clearColumnsAndPreview()
+    self.enableComponents()
+    self.autorefresh()
+    
   def rdbUseTab_change(self,*args):
-    self.columnTypes.clear()
+    self.clearColumnsAndPreview()
     self.enableComponents()
     self.autorefresh()
     
   def rdbUseColon_change(self,*args):
-    self.columnTypes.clear()
+    self.clearColumnsAndPreview()
     self.enableComponents()
     self.autorefresh()
     
   def rdbUseSemiColon_change(self,*args):
-    self.columnTypes.clear()
+    self.clearColumnsAndPreview()
     self.enableComponents()
     self.autorefresh()
     
   def rdbUseSpace_change(self,*args):
-    self.columnTypes.clear()
+    self.clearColumnsAndPreview()
     self.enableComponents()
     self.autorefresh()
     
   def rdbUseOther_change(self,*args):
-    self.columnTypes.clear()
+    self.clearColumnsAndPreview()
     self.enableComponents()
     self.autorefresh()
     
   def rdbUseSeparator_change(self,*args):
-    self.columnTypes.clear()
+    self.clearColumnsAndPreview()
     self.enableComponents()
     self.autorefresh(4)
 
   def rdbFixedSize_change(self,*args):
-    self.columnTypes.clear()
+    self.clearColumnsAndPreview()
     self.enableComponents()
     self.autorefresh(4)
 
@@ -960,6 +972,13 @@ class CSVWizard(FormPanel, AbstractDataStoreParametersPanel): # pylint: disable=
     
   def txtGeomName_focusGained(self,*args):
     self.txtGeomName.selectAll()
+
+  def clearColumnsAndPreview(self):
+    self.columnTypes.clear()
+    if self.featureTable!=None:
+      self.featureTable.setVisible(False)
+
+
     
 
 def main(*args):
