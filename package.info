@@ -1,11 +1,11 @@
 #
-#Tue Jun 02 10:17:19 CEST 2020
+#Mon Jun 03 11:09:02 CEST 2024
 owner=gvSIG association
 code=CSVWizard
 java-version=j1_7
 official=true
 type=Script
-version=1.0.0-11
+version=1.0.0-13
 state=testing
 operating-system=all
 dependencies=
@@ -16,6 +16,7 @@ model-version=1.0.1
 categories=
 description=Asistente para la carga de ficheros CSV como capa y tabla.\n\nPermite ajustar la configuracion de carga del CSV y previsualizarlo para \nasegurar la correcta configuracion antes de realizar la carga de este.
 owner-url=http\://www.gvsig.com/
-buildNumber=11
-gvSIG-version=2.5.1
+buildNumber=13
+download-url=https\://github.com/gvSIGAssociation/gvsig-desktop-scripting-CSVWizard/releases/download/1.0.0-13/gvSIG-desktop-2.6.1-CSVWizard-1.0.0-13-testing-all-all-j1_7.gvspkg
+gvSIG-version=2.6.1
 name=CSV Wizard
